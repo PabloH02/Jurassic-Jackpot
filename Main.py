@@ -25,6 +25,7 @@ def jugar_tragaperras():
 def jugar_dados():
     print("\n¡Has elegido jugar a los Dados!")
     # Aquí puedes agregar la lógica del juego de dados
+    
     print("¡Tira los dados y veamos qué sale!")
 
 def main():
