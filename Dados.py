@@ -7,7 +7,7 @@ def lanzar_dados():
     return dado1, dado2
 
 # Función principal del juego
-def juego():
+def juegoDados():
     print("¡Bienvenido al juego de dados del casino!")
     
     # El jugador elige si cree que la suma de los dados será mayor o menor que 7
@@ -28,7 +28,4 @@ def juego():
     else:
         print(f"Perdiste. La suma fue {suma_dados}.")
 
-# Iniciamos el juego
-if __name__ == "__main__":
-    juego()
 

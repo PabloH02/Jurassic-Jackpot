@@ -1,3 +1,5 @@
+import Dados
+
 def mostrar_menu():
     print("\nBienvenido al Casino Jurassic Jackpot")
     print("Selecciona una opción para jugar:")
@@ -40,7 +42,7 @@ def main():
         elif opcion == '3':
             jugar_tragaperras()
         elif opcion == '4':
-            jugar_dados()
+            juegoDados()
         elif opcion == '5':
             print("\nGracias por jugar en el Casino Jurassic Jackpot. ¡Hasta pronto!")
             break
