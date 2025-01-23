@@ -1,6 +1,7 @@
 import Dados
 import Ruleta
 import Slots
+import Blackjack
 
 def mostrar_menu():
     print("\nBienvenido al Casino Jurassic Jackpot")
@@ -26,7 +27,7 @@ def main():
         if opcion == '1':
             Ruleta.juegoRuleta()
         elif opcion == '2':
-            jugar_blackjack()
+            Blackjack.jugar()
         elif opcion == '3':
             Slots.juegoSlots()
         elif opcion == '4':
