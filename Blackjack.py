@@ -6,7 +6,7 @@ def obtenerValorCarta(carta, jugada):
         return 11 if jugada + 11 <= 21 else 1
     return carta
 # Define el juego para poder repetirlo
-def jugar():
+def juegoBlackjack():
     # Inicializamos las cartas
     krupier1 = random.randint(1, 10)
     krupier2 = random.randint(1, 10)
@@ -61,9 +61,9 @@ def jugar():
     
     jugar_de_nuevo = input("¿Quieres jugar otra vez? (s/n): ")
     if jugar_de_nuevo == 's':
-        jugar()  # Vuelve a jugar
+        juegoBlackjack()  # Vuelve a jugar
     else:
         print("¡Gracias por jugar!")
 
 # Iniciar el juego
-jugar()
+juegoBlackjack()

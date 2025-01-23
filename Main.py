@@ -27,7 +27,7 @@ def main():
         if opcion == '1':
             Ruleta.juegoRuleta()
         elif opcion == '2':
-            Blackjack.jugar()
+            Blackjack.juegoBlackjack()
         elif opcion == '3':
             Slots.juegoSlots()
         elif opcion == '4':
