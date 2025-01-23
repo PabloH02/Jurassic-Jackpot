@@ -13,12 +13,6 @@ def mostrar_menu():
     print("5. Salir")
 
 
-def jugar_blackjack():
-    print("\n¡Has elegido jugar al Blackjack!")
-    # Aquí puedes agregar la lógica del juego de Blackjack
-    print("¡Tus cartas han sido repartidas!")
-
-
 def main():
     while True:
         mostrar_menu()

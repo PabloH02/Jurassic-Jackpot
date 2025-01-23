@@ -29,6 +29,8 @@ def juegoBlackjack():
         jugada += valor_carta
         if jugada > 21:
             return "Mayor que 21, has perdido"
+        elif jugada==21:
+            return 'Has ganado'
         return jugada
     # Funcion para ver la jugada del krupier
     def krupier(jugadaKrupier):
@@ -40,24 +42,30 @@ def juegoBlackjack():
         return jugadaKrupier
     
     while True:
-        condicion = int(input('Elija su jugada: \n1.Pedir \n2.Quedarse\n'))
-        if condicion == 1:
-            jugada = pedirCarta(jugada)
-            print(f"Tu jugada es {jugada}")
-            if isinstance(jugada, str):  # Si la jugada es una cadena
-                print(jugada)
-                break
-        elif condicion == 2:
-            jugadaKrupier = krupier(jugadaKrupier)
-            print(f"El krupier tiene: {jugadaKrupier}")
-            if jugada > jugadaKrupier and jugada <= 21:
-                print('Has ganado')
-            else:
-                print('Has perdido')
-            break
+        if(jugada==21):
+             print('Has ganado')
+             break
         else:
-            print("No has elegido una opción correcta")
-    
+            condicion = int(input('Elija su jugada: \n1.Pedir \n2.Quedarse\n'))
+            if condicion == 1:
+                    jugada = pedirCarta(jugada)
+                    print(f"Tu jugada es {jugada}")
+                    
+                    if isinstance(jugada, str):  # Si la jugada es una cadena
+                        print(jugada)
+                        break
+            
+            elif condicion == 2:
+                jugadaKrupier = krupier(jugadaKrupier)
+                print(f"El krupier tiene: {jugadaKrupier}")
+                if jugada > jugadaKrupier and jugada <= 21:
+                    print('Has ganado')
+                else:
+                    print('Has perdido')
+                break
+            else:
+                print("No has elegido una opción correcta")
+        
     
     jugar_de_nuevo = input("¿Quieres jugar otra vez? (s/n): ")
     if jugar_de_nuevo == 's':
@@ -65,5 +73,3 @@ def juegoBlackjack():
     else:
         print("¡Gracias por jugar!")
 
-# Iniciar el juego
-juegoBlackjack()
