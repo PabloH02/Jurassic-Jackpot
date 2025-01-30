@@ -27,5 +27,6 @@ def juegoDados():
         print(f"¡Ganaste! La suma fue {suma_dados}.")
     else:
         print(f"Perdiste. La suma fue {suma_dados}.")
+        print()
 
 
