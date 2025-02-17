@@ -64,7 +64,7 @@ def verificar_ganador(apuesta, numero, color):
             return True
     return False
 
-def main():
+def juegoRuleta():
     print("Bienvenido a la ruleta!")
     while True:
         apuesta = apostar()
@@ -85,5 +85,4 @@ def main():
             print("Gracias por jugar. ¡Hasta luego!")
             break
 
-if __name__ == "__main__":
-    main()
+
