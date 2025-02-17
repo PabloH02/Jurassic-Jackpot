@@ -10,11 +10,17 @@ def lanzar_dados():
 def juegoDados():
     print("¡Bienvenido al juego de dados del casino!")
     
-    # El jugador elige si cree que la suma de los dados será mayor o menor que 7
-    eleccion = input("¿Crees que la suma de los dados será mayor o menor que 7? (mayo/meno): ").lower()
+    # Intentamos capturar una opción válida del jugador
+    try:
+        # El jugador elige si cree que la suma de los dados será mayor o menor que 7
+        eleccion = input("¿Crees que la suma de los dados será mayor o menor que 7? (mayo/meno): ").lower()
+
+        # Verificamos si la opción es válida
+        if eleccion not in ["mayo", "meno"]:
+            raise ValueError("Opción no válida. Debes elegir 'mayo' o 'meno'.")
     
-    if eleccion not in ["mayo", "meno"]:
-        print("Opción no válida. Debes elegir 'mayo' o 'meno'.")
+    except ValueError as e:
+        print(e)
         return
 
     # Lanzamos los dados
@@ -27,6 +33,3 @@ def juegoDados():
         print(f"¡Ganaste! La suma fue {suma_dados}.")
     else:
         print(f"Perdiste. La suma fue {suma_dados}.")
-        print()
-
-
