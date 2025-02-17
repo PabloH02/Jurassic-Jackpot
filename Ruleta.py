@@ -98,3 +98,5 @@ def main():
             print(f"Ha ocurrido un error inesperado: {e}")
             break
 
+if __name__ == "__main__":
+    main()

@@ -23,7 +23,7 @@ def es_ganador(carrete_1, carrete_2, carrete_3):
         print("¡Sigue probando, no has ganado esta vez!")
 
 # Función principal del juego
-def jugar():
+def juegoSlots():
     print("Bienvenido al juego de slots sin apostar!")
     
     while True:
@@ -46,7 +46,4 @@ def jugar():
             print("Gracias por jugar. ¡Hasta la próxima!")
             break
 
-# Iniciar el juego
-if __name__ == "__main__":
-    jugar()
-    
+
