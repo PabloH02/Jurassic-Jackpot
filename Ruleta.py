@@ -24,14 +24,22 @@ def apostar():
     print("2. Apostar al color (rojo/negro)")
     print("3. Apostar a par/impar")
     
-    opcion = int(input("Selecciona una opción de apuesta (1/2/3): "))
+    try:
+        opcion = int(input("Selecciona una opción de apuesta (1/2/3): "))
+    except ValueError:
+        print("Error: Por favor, ingresa un número válido.")
+        return None
     
     if opcion == 1:
-        numero = int(input("A qué número quieres apostar (0-36): "))
-        if numero not in ruleta:
-            print("Número no válido.")
+        try:
+            numero = int(input("A qué número quieres apostar (0-36): "))
+            if numero not in ruleta:
+                print("Número no válido.")
+                return None
+            return {'tipo': 'numero', 'valor': numero}
+        except ValueError:
+            print("Error: Por favor, ingresa un número válido.")
             return None
-        return {'tipo': 'numero', 'valor': numero}
     
     elif opcion == 2:
         color = input("A qué color deseas apostar (rojo/negro): ").lower()
@@ -67,23 +75,26 @@ def verificar_ganador(apuesta, numero, color):
 def main():
     print("Bienvenido a la ruleta!")
     while True:
-        apuesta = apostar()
-        if apuesta is None:
-            print("Vuelve a intentarlo con una apuesta válida.")
-            continue
+        try:
+            apuesta = apostar()
+            if apuesta is None:
+                print("Vuelve a intentarlo con una apuesta válida.")
+                continue
+            
+            numero_girado, color_girado = girar_ruleta()
+            print(f"La ruleta ha caído en el número {numero_girado} ({color_girado}).")
+            
+            if verificar_ganador(apuesta, numero_girado, color_girado):
+                print("¡Felicidades, ganaste!")
+            else:
+                print("Lo siento, perdiste.")
+            
+            otra_apuesta = input("¿Quieres jugar otra vez? (s/n): ").lower()
+            if otra_apuesta != 's':
+                print("Gracias por jugar. ¡Hasta luego!")
+                break
         
-        numero_girado, color_girado = girar_ruleta()
-        print(f"La ruleta ha caído en el número {numero_girado} ({color_girado}).")
-        
-        if verificar_ganador(apuesta, numero_girado, color_girado):
-            print("¡Felicidades, ganaste!")
-        else:
-            print("Lo siento, perdiste.")
-        
-        otra_apuesta = input("¿Quieres jugar otra vez? (s/n): ").lower()
-        if otra_apuesta != 's':
-            print("Gracias por jugar. ¡Hasta luego!")
+        except Exception as e:
+            print(f"Ha ocurrido un error inesperado: {e}")
             break
 
-if __name__ == "__main__":
-    main()
