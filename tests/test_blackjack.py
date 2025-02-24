@@ -1,73 +1,54 @@
+import unittest
+import sys
+import os
+
+from unittest.mock import patch
 import random
 
-# Función para tratar los ases que pueden tener valor como 1 u 11
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+import Blackjack
 def obtenerValorCarta(carta, jugada):
     if carta == 1:
         return 11 if jugada + 11 <= 21 else 1
     return carta
-# Define el juego para poder repetirlo
-def jugar():
-    # Inicializamos las cartas
-    krupier1 = random.randint(1, 10)
-    krupier2 = random.randint(1, 10)
-    if krupier1 == 1 or krupier2 == 1:
-        krupier1 = obtenerValorCarta(krupier1, krupier1 + krupier2)
-        krupier2 = obtenerValorCarta(krupier2, krupier1 + krupier2)
 
-    jugadaKrupier = krupier1 + krupier2
-    carta1 = random.randint(1, 10)
-    carta2 = random.randint(1, 10)
-    jugada = obtenerValorCarta(carta1, 0) + obtenerValorCarta(carta2, 0)
-
-    print(f"Tus cartas son {carta1} y {carta2} :: {jugada}")
-    print(f"El krupier tiene {krupier1}")
-    # Funcion para pedir cuantas cartas quiera
-    def pedirCarta(jugada):
-        carta = random.randint(1, 10)
-        valor_carta = obtenerValorCarta(carta, jugada)
-        print(f"Te ha salido un {carta}")
-        jugada += valor_carta
-        if jugada > 21:
-            return "Mayor que 21, has perdido"
-        return jugada
-    # Funcion para ver la jugada del krupier
-    def krupier(jugadaKrupier):
-        while jugadaKrupier < 16:
-            carta = random.randint(1, 10)
-            valor_carta = obtenerValorCarta(carta, jugadaKrupier)
-            print(f"Le ha salido {carta}")
-            jugadaKrupier += valor_carta
-        return jugadaKrupier
+class TestBlackjack(unittest.TestCase):
+    def test_obtener_valor_carta(self):
+        self.assertEqual(obtenerValorCarta(1, 10), 11)
+        self.assertEqual(obtenerValorCarta(1, 11), 1)
+        self.assertEqual(obtenerValorCarta(5, 10), 5)
     
-    while True:
+    @patch('builtins.input', side_effect=['2', 'n'])  # Se queda y luego dice "no" a jugar de nuevo
+    @patch('random.randint', side_effect=[10, 10, 10, 1])  # Controla las cartas generadas
+    def test_usuario_gana(self, mock_randint, mock_input):
+        from io import StringIO
+
+        output = StringIO()
+        original_stdout = sys.stdout  # Guardar stdout original
+        sys.stdout = output
+        
         try:
-                condicion = int(input('Elija su jugada: \n1.Pedir \n2.Quedarse\n'))
-        except ValueError:
-                print("Por favor, introduce un número válido.")
-                continue
-        if condicion == 1:
-            jugada = pedirCarta(jugada)
-            print(f"Tu jugada es {jugada}")
-            if isinstance(jugada, str):  # Si la jugada es una cadena
-                print(jugada)
-                break
-        elif condicion == 2:
-            jugadaKrupier = krupier(jugadaKrupier)
-            print(f"El krupier tiene:{jugadaKrupier}")
-            if jugada > jugadaKrupier and jugada <= 21 or jugadaKrupier>21:
-                print('Has ganado')
-            else:
-                print('Has perdido')
-            break
-        else:
-            print("No has elegido una opción correcta")
+            Blackjack.juegoBlackjack()
+        finally:
+            sys.stdout = original_stdout  # Restaurar stdout
+        
+        self.assertIn("Has ganado", output.getvalue())
     
+    @patch('builtins.input', side_effect=['1', '2', 'n'])  # Usuario pide carta, luego se queda y finalmente dice que no a jugar de nuevo 
+    @patch('random.randint', side_effect=[10, 10, 10, 10, 6])  # Cartas predefinidas
+    def test_usuario_pierde(self, mock_randint, mock_input):
+        from io import StringIO
+        import sys
+        
+        output = StringIO()
+        sys.stdout = output
+        
+        Blackjack.juegoBlackjack()
+        
+        sys.stdout = sys.__stdout__
+        
+        self.assertIn("has perdido", output.getvalue())
     
-    jugar_de_nuevo = input("¿Quieres jugar otra vez? (s/n): ")
-    if jugar_de_nuevo == 's':
-        jugar()  # Vuelve a jugar
-    else:
-        print("¡Gracias por jugar!")
-
-# Iniciar el juego
-jugar()
+if __name__ == '__main__':
+    unittest.main()
