@@ -20,7 +20,7 @@ def juegoBlackjack():
     jugada = obtenerValorCarta(carta1, 0) + obtenerValorCarta(carta2, 0)
 
     print(f"Tus cartas son {carta1} y {carta2} :: {jugada}")
-    print(f"El krupier tiene {krupier1} y {krupier2} :: {jugadaKrupier}")
+    print(f"El krupier tiene {krupier1}")
     # Funcion para pedir cuantas cartas quiera
     def pedirCarta(jugada):
         carta = random.randint(1, 10)
@@ -29,8 +29,6 @@ def juegoBlackjack():
         jugada += valor_carta
         if jugada > 21:
             return "Mayor que 21, has perdido"
-        elif jugada==21:
-            return 'Has ganado'
         return jugada
     # Funcion para ver la jugada del krupier
     def krupier(jugadaKrupier):
@@ -41,11 +39,11 @@ def juegoBlackjack():
             jugadaKrupier += valor_carta
         return jugadaKrupier
     
+    while(jugada==21):
+            print('Has ganado')
+            break
     while True:
-        if(jugada==21):
-             print('Has ganado')
-             break
-        else:
+        
             condicion = int(input('Elija su jugada: \n1.Pedir \n2.Quedarse\n'))
             if condicion == 1:
                     jugada = pedirCarta(jugada)
